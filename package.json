@@ -1,5 +1,5 @@
 {
-  "name": "yeh",
+  "name": "@yaijs/yeh",
   "version": "1.0.0",
   "description": "YEH (YpsilonEventHandler) - Supercharged multi-handler event system with closest-match DOM resolution and QuantumType docs. The most advanced event delegation architecture available.",
   "homepage": "https://github.com/yaijs/yeh#readme",

@@ -121,7 +121,7 @@ const data = new DataManager();
 
 fontSize: <span data-config-key="fontSize">Loading value of fontSize</span>
 
-<script src="https://cdn.jsdelivr.net/npm/yeh@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
 <script>
 // Our reactive state - just a plain object
 const config = {
@@ -422,7 +422,7 @@ const advancedMethods = {
 };
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/yeh@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
 <script>
 // 🚀 Pattern 2: Super Router with Advanced Configuration
 class MyHandler extends YEH {

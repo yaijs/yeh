@@ -4,8 +4,8 @@
 
 YEH uses browser-native APIs (stable since 2000) for reliable, no-dependency event handling. Works on `file://` with zero build tools.
 
-[![NPM version](https://img.shields.io/npm/v/yeh.svg)](https://npmjs.org/package/yeh)
-[![License](https://img.shields.io/npm/l/yeh.svg)](https://github.com/yaijs/yeh/blob/main/LICENSE)
+[![NPM version](https://img.shields.io/npm/v/@yaijs/yeh.svg)](https://npmjs.org/package/@yaijs/yeh)
+[![License](https://img.shields.io/npm/l/@yaijs/yeh.svg)](https://github.com/yaijs/yeh/blob/main/LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-QuantumType-blueviolet)](https://github.com/yaijs/yeh/blob/main/yeh.d.ts)
 
 ---
@@ -41,7 +41,7 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
     <button data-action="delete">Delete</button>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/yeh@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
   <script>
     class MyHandler extends YEH {
       constructor() {
@@ -75,12 +75,12 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 
 ### CDN (Instant Setup)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/yeh@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
 ```
 
 ### npm (Build Tools)
 ```bash
-npm install ypsilon-event-handler
+npm install @yaijs/yeh
 ```
 
 ### Direct Download
