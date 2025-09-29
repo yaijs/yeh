@@ -1,0 +1,12 @@
+# IDE specific files
+.vscode
+*.swp
+*.swo
+.claude
+.npmignore
+CLAUDE.md
+RELEASE_NOTES.md
+ToDo.md
+spa.html
+test.html
+test-prefix.html

@@ -1,0 +1,77 @@
+{
+  "name": "yeh",
+  "version": "1.0.0",
+  "description": "YEH (YpsilonEventHandler) - Supercharged multi-handler event system with closest-match DOM resolution and QuantumType docs. The most advanced event delegation architecture available.",
+  "homepage": "https://github.com/yaijs/yeh#readme",
+  "main": "yeh.js",
+  "types": "yeh.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "events",
+    "event-handler",
+    "event-driven",
+    "event-driven-architecture",
+    "dom-events",
+    "passive-events",
+    "web-dev",
+    "handle-event",
+    "browser",
+    "frontend",
+    "memory-efficient",
+    "memory-leak-zero",
+    "debugging",
+    "typescript",
+    "types",
+    "quantum-type",
+    "closest-match",
+    "multi-handler",
+    "subscriber",
+    "emit",
+    "on",
+    "eaas",
+    "e-a-a-s",
+    "event-as-a-service",
+    "eal",
+    "e-a-l",
+    "event-abstraction-layer",
+    "dom-scoping",
+    "event-delegation",
+    "super-delegation",
+    "quantum-delegation",
+    "ai-approved"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "authors": [
+    "Engin Ypsilon - Core library architect and Medium",
+    "Claude Van DOM - TypeScript documentation system architect"
+  ],
+  "contributors": [
+    "Sunny DeepSeek - Revolutionary quantum suggestions and schema validation",
+    "Herr Von Grokk - Enhanced JSDoc examples and property-level documentation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaijs/yeh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yaijs/yeh/issues"
+  },
+  "files": [
+    "yeh.js",
+    "yeh.d.ts",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "import": "./yeh.js",
+      "require": "./yeh.js",
+      "types": "./yeh.d.ts"
+    }
+  }
+}
