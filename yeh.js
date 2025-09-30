@@ -920,7 +920,6 @@ class YEH {
      */
     static dispatch(type, detail = null, target = document) {
         const event = new CustomEvent(type, { detail, bubbles: true, cancelable: true });
-
         target.dispatchEvent(event);
         return event;
     }

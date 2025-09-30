@@ -32,7 +32,7 @@ Independent modules that communicate through event dispatch without coupling.
 
 Event-driven architecture in minutes and zero configuration.
 
-[Live example on JSFiddle](https://jsfiddle.net/65hdmz9v/), just because.
+[Live example on JSFiddle](https://jsfiddle.net/u6oztbqn/), just because.
 
 ```js
 // Module A: User Interface (can be in same file or separate files)
@@ -96,7 +96,7 @@ const data = new DataManager();
 
 **Use When**: You need reactive interfaces without framework overhead, building configuration panels, or creating dynamic dashboards.
 
-[Live example on JSFiddle](https://jsfiddle.net/4zqem37g/), where I copy&pasted from below to there, again.
+[Live example on JSFiddle](https://jsfiddle.net/mt9o65q4/), where I copy&pasted from below to there, again.
 
 ```html
 <label>
@@ -233,13 +233,13 @@ const configHandler = new ConfigHandler();
 **Use When**: Building large SPAs with hundreds/thousands of dynamic elements, or when you want ultimate performance with minimal memory footprint.
 
 One listener handles infinite elements with intelligent routing.
-
-**Something's wrong, HEY?**
+```
+"Something's wrong here, HEY?"
 "What?"
-**Where is my example to copy&paste?**
+"Where is my "Live example on JSFiddle" to copy&paste?"
 "Challenge, you write your Example!"
-**Say what?**
-
+"Say what?"
+```
 ```js
 class MyHandler extends YEH {
     constructor() {
@@ -368,7 +368,7 @@ const tabsModule2 = new YpsExample({ rootSelector: '[data-tabs-secondary]' });
 
 Write your code where your HTML lives and inject methods into the handler on the fly.
 
-[Live example on JSFiddle](https://jsfiddle.net/xrju1gca/), where I copy&pasted from below to there.
+[Live example on JSFiddle](https://jsfiddle.net/u3pnm2o0/), where I copy&pasted from below to there.
 
 ```html
 <!DOCTYPE html>
@@ -701,7 +701,7 @@ class MyHandler extends YEH {
 Revolutionary data flow architecture bridging DOM events to WebWorker computations:
 
 **Event Chain:**
-```
+```h
 DOM input → handleInput() → worker.postMessage() →
   WebWorker computation → worker.onmessage →
     this.dispatch('worker-result') → displayResult()
@@ -709,7 +709,7 @@ DOM input → handleInput() → worker.postMessage() →
 
 **Key Innovation:** Seamless DOM-to-WebWorker-to-DOM event bridging through YEH's custom event system. Heavy computations never block the UI.
 
-[Live example on JSFiddle](https://jsfiddle.net/j0ev6woq/).
+[Live example on JSFiddle](https://jsfiddle.net/0mne2pgf/).
 
 ```js
 // Bridge DOM events to WebWorkers via custom events - completely out of control
@@ -747,6 +747,7 @@ class WorkerResultHandler extends WebWorkerBridge {
     }
 
     displayResult(event) {
+        // 'worker-result' message become DOM event
         console.log('🧠 Worker computed:', event.detail);
     }
 }

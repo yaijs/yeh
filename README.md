@@ -29,7 +29,7 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 
 **No setup, no build step, no server, just include the file.**
 
-**Get started in 30 seconds** – [try it live on JSFiddle](https://jsfiddle.net/L6zk29v5/)
+**Get started in 30 seconds** – [try it live on JSFiddle](https://jsfiddle.net/q0ju4my3/)
 
 ```html
 <!DOCTYPE html>
@@ -76,6 +76,8 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 ### CDN (Instant Setup)
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
+<!-- Short & minified -->
+<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh"></script>
 ```
 
 ### npm (Build Tools)
@@ -84,7 +86,7 @@ npm install @yaijs/yeh
 ```
 
 ### Direct Download
-[Download latest version](ypsilon-event-handler.js) - works with file:// protocol
+[Download latest version](yeh.js) - works with file:// protocol
 
 ---
 
@@ -174,11 +176,11 @@ With `enableStats: true`: `console.log(handler.getStats());`
 
 ```bash
 /
-├── yeh.js                        # Main library
-├── yeh.d.ts                      # Main TypeScript
-├── README.md                     # Quick start and core guide
-├── README.USAGE.md               # Advanced patterns and techniques
-└── README.TECHNICAL.md           # Implementation details and architecture
+├── yeh.js               # Main library
+├── yeh.d.ts             # Main TypeScript
+├── README.md            # Quick start and core guide
+├── README.USAGE.md      # Advanced patterns and techniques
+└── README.TECHNICAL.md  # Implementation details and architecture
 ```
 
 ---

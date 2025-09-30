@@ -38,6 +38,8 @@ document.body.addEventListener('click', (e) => {
 // Still 1, in fact, still the same listener. Not even a refresh. ✅
 ```
 
+This is especially useful if you have a lot of form elements (e.g., editable configurations via a GUI). Instead of adding a new listener for each input element and then properly removing them when you're done, we simply inject our HTML snippets/templates into the page. They trigger their corresponding events as well that we catch on the parent level and process. When done, we remove the HTML snippets the same way we inserted them - without a second thought. Where "without a second thought" doesn't mean "thoughtless," but rather "it's simply not necessary."
+
 ### Event-as-a-Service (EaaS) Architecture
 
 YEH treats events as a **service system**:
@@ -312,14 +314,14 @@ const eventMapping = {
 
 ```js
 const options = {
-  enableStats: false,           // Performance tracking
-  enableDistanceCache: true,    // Cache DOM calculations
+  enableStats: false,            // Performance tracking
+  enableDistanceCache: true,     // Cache DOM calculations
   enableHandlerValidation: true, // Warn about missing methods
-  methods: {},                  // External method mapping
-  methodsFirst: false,          // Priority: methods before class
-  enableGlobalFallback: false,  // Fallback to window functions
-  passiveEvents: [...],         // Custom passive event list
-  abortController: false        // AbortController support
+  methods: {},                   // External method mapping
+  methodsFirst: false,           // Priority: methods before class
+  enableGlobalFallback: false,   // Fallback to window functions
+  passiveEvents: [...],          // Custom passive event list
+  abortController: false         // AbortController support
 };
 ```
 

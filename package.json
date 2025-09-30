@@ -1,7 +1,7 @@
 {
   "name": "@yaijs/yeh",
   "version": "1.0.0",
-  "description": "YEH (YpsilonEventHandler) - Supercharged multi-handler event system with closest-match DOM resolution and QuantumType docs. The most advanced event delegation architecture available.",
+  "description": "YEH (YpsilonEventHandler) - VanillaJS lightweight multi-handler event system with closest-match DOM resolution.",
   "homepage": "https://github.com/yaijs/yeh#readme",
   "main": "yeh.js",
   "types": "yeh.d.ts",
@@ -21,7 +21,6 @@
     "browser",
     "frontend",
     "memory-efficient",
-    "memory-leak-zero",
     "debugging",
     "typescript",
     "types",
@@ -40,8 +39,9 @@
     "dom-scoping",
     "event-delegation",
     "super-delegation",
-    "quantum-delegation",
-    "ai-approved"
+    "vanilla-js",
+    "vanilla-javascript",
+    "vanillajs"
   ],
   "engines": {
     "node": ">=14.0.0",
