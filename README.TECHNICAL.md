@@ -325,6 +325,45 @@ const options = {
 };
 ```
 
+### **Available Configuration Options (Parameter 3 with defaults)**
+
+```json
+{
+  // Handler Resolution System
+  handlerPrefix:           'handle', // Auto-generated method prefix (handle → handleClick)
+  enableGlobalFallback:    false,    // Search window/global scope for missing handlers
+  methods:                 null,     // External methods object (Vue.js style)
+  methodsFirst:            false,    // Check methods object before instance methods
+
+  // Modern Event Management
+  abortController:         false,    // Enable AbortController for easy cleanup
+
+  // Smart target resolution
+  autoTargetResolution:    false,    // Automatically resolve actionable targets
+  targetResolutionEvents:  [         // Events that should use smart target resolution (e.target || e.currentTarget)
+    'click', 'touchstart', 'touchend', 'mousedown', 'mouseup'
+  ],
+
+  // Performance Optimization
+  enableStats:             false,    // Track performance metrics
+  enableDistanceCache:     true,     // Enable DOM distance caching (default: true)
+  enableConfigValidation:  true,     // Enable comprehensive configuration validation (default: true)
+
+  // Actionable Target Configuration (NEW v1.6.6+)
+  enableActionableTargets: true,            // Enable actionable target system
+  actionableAttributes:    ['data-action'], // Custom actionable attributes
+  actionableClasses:       ['actionable'],  // Custom actionable CSS classes
+  actionableTags:          ['BUTTON', 'A'], // Custom actionable HTML tags
+
+  // Event Behavior
+  passiveEvents: [ // Events that should be passive for performance
+    'scroll', 'touchstart', 'touchmove', 'touchend', 'touchcancel',
+    'wheel', 'mousewheel', 'pointermove', 'pointerenter', 'pointerleave',
+    'resize', 'orientationchange', 'load', 'beforeunload', 'unload'
+  ],
+}
+```
+
 ---
 
 ## 🚀 **Advanced Implementation Notes**
