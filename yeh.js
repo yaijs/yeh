@@ -1023,9 +1023,6 @@ class YEH {
 
 YEH._passiveSupportCache = undefined;
 
-export {YEH};
-export default YEH;
-
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { YEH };
     module.exports.default = YEH;

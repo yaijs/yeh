@@ -1,6 +1,6 @@
 {
   "name": "@yaijs/yeh",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "YEH (YpsilonEventHandler) - VanillaJS lightweight multi-handler event system with closest-match DOM resolution.",
   "homepage": "https://github.com/yaijs/yeh#readme",
   "main": "yeh.js",
