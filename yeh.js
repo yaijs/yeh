@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * YEH (YpsilonEventHandler) - Lightweight multi-handler event system with closest-match DOM resolution.
+ * YEH (Yai Event Hub) - Lightweight multi-handler event system with closest-match DOM resolution.
  * Simplifies event management by centralizing listeners and providing advanced event delegation and routing options.
  */
 class YEH {
@@ -17,7 +17,10 @@ class YEH {
             targetResolutionEvents: null,
             enableConfigValidation: true,
             enableHandlerValidation: true,
-            ...config
+            stopPropagation: true,
+            enableDistanceCache: false,
+            callable: {},
+            ...config,
         };
         this.eventMapping = eventMapping;
         this.aliases = aliases;
@@ -37,15 +40,17 @@ class YEH {
             'wheel', 'mousewheel', 'pointermove', 'pointerenter', 'pointerleave',
             'resize', 'orientationchange', 'load', 'beforeunload', 'unload'
         ];
-
+        this.config.callable.beforeHandleEvent = null;
+        this.config.callable.afterHandleEvent = null;
         this.handlerPrefix = this.config.handlerPrefix !== undefined ? this.config.handlerPrefix : 'handle';
         this.abortController = this.config.abortController ? new AbortController() : null;
         this.autoTargetResolution = this.config.autoTargetResolution;
         this.targetResolutionEvents = this.config.targetResolutionEvents || ['click', 'touchstart', 'touchend', 'mousedown', 'mouseup'];
 
         // DOM Distance Cache for performance optimization
-        this.distanceCache = new Map();
-        this.enableDistanceCache = this.config.enableDistanceCache !== false; // Default: enabled
+        this.distanceCache = new WeakMap();
+        // this.distanceCache = new Map();
+        this.enableDistanceCache = this.config.enableDistanceCache; // Default: enabled
 
         // Configurable actionable target patterns
         this.actionableConfig = {
@@ -99,11 +104,77 @@ class YEH {
                 }
                 // Find the actual closest matching element for this event target
                 const actualClosestElement = this.findClosest(event.target, closestHandler.selector);
-                handler.call(this, event, resolvedTarget, actualClosestElement);
-                event.stopPropagation();
+
+                // Execute beforeHandleEvent hook
+                this._executeHook('beforeHandleEvent', {
+                    event,
+                    target: resolvedTarget,
+                    element: actualClosestElement,
+                    eventType: event.type,
+                    handler: closestHandler.handler
+                });
+
+                // Call the actual handler
+                const result = handler.call(this, event, resolvedTarget, actualClosestElement);
+
+                // Execute afterHandleEvent hook
+                this._executeHook('afterHandleEvent', {
+                    event,
+                    target: resolvedTarget,
+                    element: actualClosestElement,
+                    eventType: event.type,
+                    handler: closestHandler.handler,
+                    result
+                });
+
+                if (this.config.stopPropagation !== false) {
+                    event.stopPropagation();
+                }
+
                 return;
             }
         }
+    }
+
+    _executeHook(hookName, context = {}, instance = this) {
+        const callbacks = instance.config?.callable?.[hookName];
+        if (!callbacks) return;
+
+        const results = [];
+        for (const callback of callbacks) {
+            if (typeof callback === 'function') {
+                results.push(callback(context, instance));
+            }
+        }
+
+        return results;
+    }
+
+    hook(hookName, callback, instance = this) {
+        if (!instance.config.callable) {
+            instance.config.callable = {};
+        }
+        if (!instance.config.callable[hookName]) {
+            instance.config.callable[hookName] = [];
+        }
+        instance.config.callable[hookName].push(callback);
+        return instance;
+    }
+
+    unhook(hookName, callback, instance = this) {
+        const callbacks = instance.config?.callable?.[hookName];
+        if (callbacks) {
+            instance.config.callable[hookName] =
+                callbacks.filter(cb => cb !== callback);
+        }
+        return instance;
+    }
+
+    clearHooks(hookName, instance = this) {
+        if (instance.config?.callable) {
+            delete instance.config.callable[hookName];
+        }
+        return instance;
     }
 
     on(type, handler, target) {
@@ -147,17 +218,32 @@ class YEH {
             return this.calculateDOMDistance(target, container);
         }
 
-        // Create cache key based on both elements
-        const cacheKey = `${this.getElementKey(target)}-${this.getElementKey(container)}`;
+        // Early returns for common cases
+        if (container === document || container === window) {
+            return 1000;
+        }
 
-        if (this.distanceCache.has(cacheKey)) {
-            return this.distanceCache.get(cacheKey);
+        // Check if target is even contained by container
+        if (!container.contains?.(target)) {
+            return Infinity;
+        }
+
+        // Get or create target's cache
+        let targetCache;
+        if (this.distanceCache.has(target)) {
+            targetCache = this.distanceCache.get(target);
+        } else {
+            targetCache = new WeakMap();
+            this.distanceCache.set(target, targetCache);
+        }
+
+        // Check container cache
+        if (targetCache.has(container)) {
+            return targetCache.get(container);
         }
 
         const distance = this.calculateDOMDistance(target, container);
-
-        // Cache the result for future lookups
-        this.distanceCache.set(cacheKey, distance);
+        targetCache.set(container, distance);
 
         return distance;
     }
@@ -190,7 +276,7 @@ class YEH {
      * Clear distance cache (useful for dynamic DOM changes)
      */
     clearDistanceCache() {
-        this.distanceCache.clear();
+        this.distanceCache = new WeakMap();
     }
 
     /**
@@ -323,34 +409,9 @@ class YEH {
     }
 
     /**
-     * Generate unique key for DOM element (for caching)
+     * Get DOM elements from selector string or element reference
      * @private
      */
-    getElementKey(element) {
-        if (element === document) return 'document';
-        if (element === window) return 'window';
-        if (!element || !element.tagName) return 'unknown';
-
-        // Use tagName + id + class for uniqueness
-        const tagName = element.tagName.toLowerCase();
-        const id = element.id ? `#${element.id}` : '';
-
-        // Handle SVG elements where className is an SVGAnimatedString object
-        let className = '';
-        if (element.className) {
-            if (typeof element.className === 'string') {
-                className = `.${element.className.split(' ').join('.')}`;
-            } else if (element.className.baseVal) {
-                // SVG elements have className.baseVal
-                className = element.className.baseVal ? `.${element.className.baseVal.split(' ').join('.')}` : '';
-            }
-        }
-
-        const index = element.parentNode ? Array.from(element.parentNode.children).indexOf(element) : 0;
-
-        return `${tagName}${id}${className}[${index}]`;
-    }
-
     getElements(selector) {
         if (typeof selector === 'string') {
             if (selector === 'document') return [document];
@@ -841,7 +902,7 @@ class YEH {
 
         this.eventListeners.clear();
         this.eventHandlerMap.clear();
-        this.distanceCache.clear();
+        this.distanceCache = new WeakMap();
 
         // Clean up throttle timers
         this.throttleTimers.forEach((timerData) => {
@@ -883,13 +944,14 @@ class YEH {
             eventTypes,
             userHasInteracted: this.userHasInteracted,
             activeTimers: {
+                debounceMap: this.debounceTimers,
+                throttleMap: this.throttleTimers,
                 throttle: this.throttleTimers.size,
-                debounce: this.debounceTimers.size
+                debounce: this.debounceTimers.size,
             },
             distanceCache: {
-                size: this.distanceCache.size,
+                type: 'WeakMap (disabled by default)',
                 enabled: this.enableDistanceCache,
-                hitRate: this.distanceCache.size > 0 ? 'Available after multiple events' : 'No entries yet'
             }
         };
     }
@@ -1004,6 +1066,8 @@ class YEH {
             return YEH._passiveSupportCache;
         }
 
+        YEH._passiveSupportCache = false;
+
         try {
             const opts = Object.defineProperty({}, 'passive', {
                 get: () => {
@@ -1021,6 +1085,11 @@ class YEH {
     }
 }
 
+/**
+ * Cache for passive event support detection
+ * @type {boolean|undefined}
+ * @private
+ */
 YEH._passiveSupportCache = undefined;
 
 if (typeof module !== 'undefined' && module.exports) {

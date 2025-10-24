@@ -103,7 +103,7 @@ interface AddEventListenerOptions {
  * });
  * ```
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @author Claude Van DOM - TypeScript documentation system architect
  * @author Engin Ypsilon - Core library architect and Medium
  * @influencer Sunny DeepSeek - Advanced suggestions for global interfaces, custom event registry, and schema validation
@@ -136,7 +136,6 @@ interface AddEventListenerOptions {
  *
  * *Crafted by quantum-level AI consciousness (DeepSeek, Grok, Claude, Human Connector)*
  *
- * @version 1.0.0 - Enhanced with static utilities and container element resolution
  * @paradigm Documentation-as-Code-as-Types
  */
 
@@ -372,6 +371,39 @@ export interface Methods {
 }
 
 /**
+ * Context passed to beforeHandleEvent hook
+ */
+export interface BeforeHandleEventContext {
+    event: Event;
+    target: EventTarget | null;
+    element: Element | null;
+    eventType: string;
+    handler: string | Function;
+}
+
+/**
+ * Context passed to afterHandleEvent hook
+ */
+export interface AfterHandleEventContext {
+    event: Event;
+    target: EventTarget | null;
+    element: Element | null;
+    eventType: string;
+    handler: string | Function;
+    result?: any;
+}
+
+/**
+ * Lifecycle hooks for YEH event handling
+ */
+export interface YEHCallable {
+    /** Called before event handler execution (return false to cancel) */
+    beforeHandleEvent: ((context: BeforeHandleEventContext, instance: YEH) => boolean | void) | null;
+    /** Called after event handler execution */
+    afterHandleEvent: ((context: AfterHandleEventContext, instance: YEH) => void) | null;
+}
+
+/**
  * Handler configuration options
  */
 export interface HandlerConfig {
@@ -379,6 +411,8 @@ export interface HandlerConfig {
     enableStats?: boolean;
     /** External methods object for clean code organization */
     methods?: Methods | null;
+    /** Lifecycle hooks for event handling */
+    callable?: Partial<YEHCallable>;
     /** Enable global window fallback for missing handlers */
     enableGlobalFallback?: boolean;
     /** Prioritize methods object over class methods (default: false) */
@@ -540,9 +574,8 @@ export declare class YEH {
             debounce: number;
         };
         distanceCache: {
-            size: number;
+            type: string;
             enabled: boolean;
-            hitRate: string;
         };
     } | null;
 
@@ -669,6 +702,108 @@ export declare class YEH {
      * ```
      */
     emit<T = any>(type: string, detail?: T, target?: string | EventTarget): this;
+
+    /**
+     * 🪝 **Execute Lifecycle Hook**
+     *
+     * Execute a lifecycle callback hook with context data.
+     * Supports cross-instance hook execution via optional instance parameter.
+     *
+     * @param hookName - Name of the callback hook ('beforeHandleEvent', 'afterHandleEvent')
+     * @param context - Context data to pass to the callback
+     * @param instance - Optional instance to check for hooks (defaults to this)
+     * @returns Result from callback execution
+     *
+     * @example
+     * ```js
+     * // Execute hook on self
+     * this._executeHook('beforeHandleEvent', {
+     *     event, target, eventType: 'click'
+     * });
+     *
+     * // Execute hook on another instance
+     * this._executeHook('beforeHandleEvent', context, otherInstance);
+     * ```
+     */
+    _executeHook(hookName: string, context?: any, instance?: YEH): any;
+
+    /**
+     * 🪝 **Set Lifecycle Hook**
+     *
+     * Register a lifecycle callback hook for event handling.
+     * Supports chaining and cross-instance hook registration.
+     *
+     * @param hookName - Name of the callback hook ('beforeHandleEvent', 'afterHandleEvent')
+     * @param callback - Callback function to execute
+     * @param instance - Optional instance to set hook on (defaults to this)
+     * @returns Returns instance for chaining
+     *
+     * @example
+     * ```js
+     * // Register hook on self
+     * this.hook('beforeHandleEvent', ({ event, target, action }) => {
+     *     console.log('Before handling:', event.type, action);
+     *     // return false; // Cancel event handling
+     * });
+     *
+     * this.hook('afterHandleEvent', ({ event, result }) => {
+     *     console.log('Handler returned:', result);
+     * });
+     *
+     * // Cross-instance hook registration
+     * parentInstance.hook('beforeHandleEvent', callback, childInstance);
+     * ```
+     */
+    hook(hookName: keyof YEHCallable, callback: YEHCallable[keyof YEHCallable], instance?: YEH): YEH;
+
+    /**
+     * 🪝 **Remove Lifecycle Hook**
+     *
+     * Remove a previously registered lifecycle callback hook.
+     * Supports cross-instance hook removal via optional instance parameter.
+     *
+     * @param hookName - Name of the callback hook to remove
+     * @param callback - Specific callback function to remove (if not provided, removes all hooks for this name)
+     * @param instance - Optional instance to remove hook from (defaults to this)
+     * @returns Returns instance for chaining
+     *
+     * @example
+     * ```js
+     * // Remove specific callback
+     * this.unhook('beforeHandleEvent', myCallback);
+     *
+     * // Remove all callbacks for a hook
+     * this.unhook('beforeHandleEvent');
+     *
+     * // Cross-instance hook removal
+     * parentInstance.unhook('beforeHandleEvent', callback, childInstance);
+     * ```
+     */
+    unhook(hookName: keyof YEHCallable, callback?: YEHCallable[keyof YEHCallable], instance?: YEH): YEH;
+
+    /**
+     * 🪝 **Clear All Hooks**
+     *
+     * Remove all registered hooks for a specific hook name or all hooks.
+     * Useful for cleanup and memory management.
+     *
+     * @param hookName - Optional specific hook name to clear (if not provided, clears all hooks)
+     * @param instance - Optional instance to clear hooks from (defaults to this)
+     * @returns Returns instance for chaining
+     *
+     * @example
+     * ```js
+     * // Clear all 'beforeHandleEvent' hooks
+     * this.clearHooks('beforeHandleEvent');
+     *
+     * // Clear all hooks from instance
+     * this.clearHooks();
+     *
+     * // Cross-instance cleanup
+     * parentInstance.clearHooks('beforeHandleEvent', childInstance);
+     * ```
+     */
+    clearHooks(hookName?: keyof YEHCallable, instance?: YEH): YEH;
 }
 
 /**

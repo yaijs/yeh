@@ -19,7 +19,7 @@ YEH uses browser-native APIs (stable since 2000) for reliable, no-dependency eve
 - **Flexible Handler Resolution**: Class methods, external maps, or globals.
 - **Multi-Handler System**: Closest-match resolution for nested components.
 - **Performance Tracking**: Optional metrics for optimization.
-- **No Dependencies**: ~5kB gzipped, enterprise-ready (~800 LOC).
+- **No Dependencies**: ~5kB gzipped, enterprise-ready (729 LOC).
 
 For advanced patterns (e.g., reactive state, super delegation), see [README.USAGE.md](README.USAGE.md). For internals, see [README.TECHNICAL.md](README.TECHNICAL.md).
 
