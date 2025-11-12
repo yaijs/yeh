@@ -1,10 +1,12 @@
 {
   "name": "@yaijs/yeh",
-  "version": "1.0.2",
-  "description": "YEH (YpsilonEventHandler) - VanillaJS lightweight multi-handler event system with closest-match DOM resolution.",
+  "version": "1.0.4",
+  "description": "YEH (Yai Event Hub) is fundamentally designed around **event delegation** - the concept of using a single listener to handle multiple, or even dynamically added elements efficiently and lossless.",
   "homepage": "https://github.com/yaijs/yeh#readme",
-  "main": "yeh.js",
-  "types": "yeh.d.ts",
+  "type": "module",
+  "main": "./yeh.js",
+  "module": "./yeh.js",
+  "types": "./yeh.d.ts",
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
