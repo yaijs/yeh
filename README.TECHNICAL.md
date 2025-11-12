@@ -10,7 +10,7 @@ This document covers the technical internals of YEH (YpsilonEventHandler) for de
 
 ## 🎯 Core Philosophy: Event Abstraction Layer
 
-YEH is fundamentally designed around **event delegation** - the concept of using a single listener to handle multiple, or even dynamically added elements efficiently and above all lossless. This isn't just an optimization; it's the entire architectural foundation.
+YEH is fundamentally designed around **event delegation** - the concept of using a single listener to handle multiple, or even dynamically added elements efficiently and lossless. This isn't just an optimization; it's the entire architectural foundation.
 
 ### Traditional Approach vs Event Delegation
 
@@ -327,7 +327,7 @@ const options = {
 
 ### **Available Configuration Options (Parameter 3 with defaults)**
 
-```json
+```js
 {
   // Handler Resolution System
   handlerPrefix:           'handle', // Auto-generated method prefix (handle → handleClick)

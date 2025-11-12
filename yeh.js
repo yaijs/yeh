@@ -98,9 +98,8 @@ class YEH {
                     if (actionableTarget) {
                         resolvedTarget = actionableTarget;
                     } else if (this.actionableConfig.enabled) {
-                        return; // If no actionable target found, block event
+                        return; // If no actionable target found
                     }
-                    // If actionable config is disabled, keep original target (backward compatibility)
                 }
                 // Find the actual closest matching element for this event target
                 const actualClosestElement = this.findClosest(event.target, closestHandler.selector);
@@ -1092,9 +1091,9 @@ class YEH {
  */
 YEH._passiveSupportCache = undefined;
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { YEH };
-    module.exports.default = YEH;
-} else if (typeof window !== 'undefined') {
-    window['YEH'] = YEH;
+export {YEH};
+export default YEH;
+
+if (typeof window !== 'undefined') {
+    window.YEH = YEH;
 }

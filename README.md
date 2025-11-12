@@ -1,8 +1,8 @@
-# YEH (YpsilonEventHandler)
+# YEH (Yai Event Hub)
 
-> A lightweight, flexible event delegation utility for modern web applications. Simplifies event management by centralizing listeners and providing advanced routing options.
+> A lightweight, flexible event handler for modern web applications. Simplifies event management by centralizing listeners and providing advanced routing options.
 
-YEH uses browser-native APIs (stable since 2000) for reliable, no-dependency event handling. Works on `file://` with zero build tools.
+YEH is fundamentally designed around **event delegation** - the concept of using a single listener to handle multiple, or even dynamically added elements efficiently and lossless. This isn't just an optimization; it's the entire architectural foundation. Works on `file://` with zero build tools.
 
 [![NPM version](https://img.shields.io/npm/v/@yaijs/yeh.svg)](https://npmjs.org/package/@yaijs/yeh)
 [![License](https://img.shields.io/npm/l/@yaijs/yeh.svg)](https://github.com/yaijs/yeh/blob/main/LICENSE)
@@ -29,7 +29,7 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 
 **No setup, no build step, no server, just include the file.**
 
-**Get started in 30 seconds** – [try it live on JSFiddle](https://jsfiddle.net/q0ju4my3/)
+**Get started in 30 seconds** – [try it live on JSFiddle](https://jsfiddle.net/eabwrsnu/)
 
 ```html
 <!DOCTYPE html>
@@ -41,19 +41,19 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
     <button data-action="delete">Delete</button>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
-  <script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
+  <script type="module">
     class MyHandler extends YEH {
       constructor() {
-        super({ '#app': ['click'] }); // Falls back to handleClick()
+        super({ '#app': ['click'] }); // Falls back to handleClick() = "handle + click"
       }
 
-      handleClick(event, target) {
+      handleClick(event, target, container) {
         const action = target.dataset.action;
-        if (action && this[action]) this[action](target, event);
+        if (action && this[action]) this[action](target, event, container);
       }
 
-      save(target) { console.log('Saving...'); }
+      save(target)   { console.log('Saving...'); }
       delete(target) { console.log('Deleting...'); }
     }
 
@@ -75,9 +75,9 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 
 ### CDN (Instant Setup)
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
 <!-- Short & minified -->
-<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@yaijs/yeh"></script>
 ```
 
 ### npm (Build Tools)
@@ -132,7 +132,7 @@ With `enableStats: true`: `console.log(handler.getStats());`
 
 ## 🌐 Browser Support
 
-**Chrome** | **Firefox** | **Safari** | **Edge** - all modern versions
+**Opera** | **Chrome** | **Firefox** | **Safari** | **Edge** - all modern versions
 
 *Works with legacy browsers via Webpack + Babel.*
 
@@ -163,6 +163,9 @@ With `enableStats: true`: `console.log(handler.getStats());`
 
 
 ## 🚀 **See It In Action**
+
+**[YaiTabs Tab Browser Demo](https://yaijs.github.io/yai/tabs/Example.html)**
+~ Advanced Tab System build on YEH
 
 **[Interactive Examples Hub](https://eypsilon.github.io/YpsilonEventHandler-Examples/example/public/)**
 ~ Beautiful landing page with all examples organized by category

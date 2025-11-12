@@ -807,19 +807,16 @@ export declare class YEH {
 }
 
 /**
- * 🎯 **Global Event Registry** - Ultimate Type Safety for Custom Events
+ * Global Event Registry - Ultimate Type Safety for Custom Events
  *
  * Declare your custom events in this global interface to get FULL type safety
  * and IntelliSense autocomplete for event names and payloads.
  *
  * @example
  * ```ts
- * // Extend the global event map
  * declare global {
  *   interface YpsilonEventMap {
  *     'userLogin': { userId: string; timestamp: number };
- *     'modalOpen': { modalId: string; context?: any };
- *     'apiCall': { endpoint: string; method: 'GET' | 'POST' };
  *   }
  * }
  * ```
@@ -827,28 +824,16 @@ export declare class YEH {
 declare global {
     interface YpsilonEventMap {
         // Add your custom events here!
-        // Example:
-        // 'eventName': { userId: string; action: string };
     }
-
     interface HTMLElement {
-        /**
-         * YEH Instance (optional)
-         * Stores a YEH instance associated with this DOM element.
-         */
         ypsilonHandler?: YEH;
     }
-
     interface Window {
-        /**
-         * Global YEH Instance (optional)
-         * Common pattern for SPA applications that use a single global handler.
-         */
         ypsilonHandler?: YEH;
+        YEH: typeof YEH;  // ← Global access for <script> tag
     }
 }
 
-// UMD-style exports for maximum compatibility
-export = YEH;
-export as namespace YEH;
+// ES Module exports
+export { YEH };
 export default YEH;
