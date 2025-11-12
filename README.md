@@ -29,7 +29,7 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 
 **No setup, no build step, no server, just include the file.**
 
-**Get started in 30 seconds** – [try it live on JSFiddle](https://jsfiddle.net/eabwrsnu/)
+**Get started in 30 seconds** – [try it live on JSFiddle](https://jsfiddle.net/4h5bf78o/)
 
 ```html
 <!DOCTYPE html>
@@ -41,8 +41,9 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
     <button data-action="delete">Delete</button>
   </div>
 
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
   <script type="module">
+    import YEH from 'https://cdn.jsdelivr.net/npm/@yaijs/yeh@1.0.4/+esm'
+
     class MyHandler extends YEH {
       constructor() {
         super({ '#app': ['click'] }); // Falls back to handleClick() = "handle + click"
@@ -71,22 +72,42 @@ For advanced patterns (e.g., reactive state, super delegation), see [README.USAG
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### CDN (Instant Setup)
+
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@latest/yeh.js"></script>
-<!-- Short & minified -->
-<script type="module" src="https://cdn.jsdelivr.net/npm/@yaijs/yeh"></script>
+<!-- ESM (Recommended) -->
+<script type="module">
+  import { YEH } from 'https://cdn.jsdelivr.net/npm/@yaijs/yeh@1.0.4/yeh.js';
+  new YEH({ '#app': ['click'] });
+</script>
+
+<!-- Or: Global script (legacy, no import needed) -->
+<script src="https://cdn.jsdelivr.net/npm/@yaijs/yeh@1.0.4/yeh.js"></script>
+<script>
+  // YEH is now available globally
+  new YEH({ '#app': ['click'] });
+</script>
 ```
 
-### npm (Build Tools)
-```bash
+### NPM (Build Tools)
+
+```sh
 npm install @yaijs/yeh
 ```
+```sh
+// In your code (ESM)
+import { YEH } from '@yaijs/yeh';
+```
+> Important: Package is ESM-only. Use import, not require().
 
 ### Direct Download
-[Download latest version](yeh.js) - works with file:// protocol
+
+Download [yeh.js](./yeh.js)
+Download [yeh.d.ts](./yeh.d.ts)
+
+Works with file:// protocol — no server needed.
 
 ---
 
