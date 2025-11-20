@@ -103,7 +103,6 @@ interface AddEventListenerOptions {
  * });
  * ```
  *
- * @version 1.0.1
  * @author Claude Van DOM - TypeScript documentation system architect
  * @author Engin Ypsilon - Core library architect and Medium
  * @influencer Sunny DeepSeek - Advanced suggestions for global interfaces, custom event registry, and schema validation

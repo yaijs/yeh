@@ -1,6 +1,6 @@
 {
   "name": "@yaijs/yeh",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "YEH (Yai Event Hub) is fundamentally designed around **event delegation** - the concept of using a single listener to handle multiple, or even dynamically added elements efficiently and lossless.",
   "homepage": "https://github.com/yaijs/yeh#readme",
   "type": "module",

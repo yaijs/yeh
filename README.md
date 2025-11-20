@@ -1,5 +1,23 @@
 # YEH (Yai Event Hub)
 
+> **⚠️ NOTICE: This repository is now archived for historical reference.**
+>
+> **YEH has been integrated directly into [@yaijs/core](https://github.com/yaijs/yai)** as of v1.1.0. This standalone repository remains available as a reference, but all active development, documentation, and support now happens in the main YaiJS repository.
+>
+> **Migration:** Simply install `@yaijs/core` instead of `@yaijs/yeh`. All YEH functionality is included.
+>
+> ```bash
+> # Old (deprecated)
+> npm install @yaijs/yeh
+>
+> # New (recommended)
+> npm install @yaijs/core
+> ```
+>
+> **Documentation:** [https://yaijs.github.io/yai/docs/yeh/](https://yaijs.github.io/yai/docs/yeh/)
+
+---
+
 > A lightweight, flexible event handler for modern web applications. Simplifies event management by centralizing listeners and providing advanced routing options.
 
 YEH is fundamentally designed around **event delegation** - the concept of using a single listener to handle multiple, or even dynamically added elements efficiently and lossless. This isn't just an optimization; it's the entire architectural foundation. Works on `file://` with zero build tools.

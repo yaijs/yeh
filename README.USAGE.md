@@ -233,10 +233,10 @@ const configHandler = new ConfigHandler();
 **Use When**: Building large SPAs with hundreds/thousands of dynamic elements, or when you want ultimate performance with minimal memory footprint.
 
 One listener handles infinite elements with intelligent routing.
-```
+```txt
 "Something's wrong here, HEY?"
 "What?"
-"Where is my "Live example on JSFiddle" to copy&paste?"
+"Where is my "Live example page on JSFiddle" to copy&paste?"
 "Challenge, you write your Example!"
 "Say what?"
 ```
